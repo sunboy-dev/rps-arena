@@ -13,6 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PUBLIC = path.join(ROOT, 'public');
 const THREE = path.join(ROOT, 'node_modules', 'three');
+const REMIX = path.join(ROOT, 'node_modules', 'remixicon');
 const PORT = Number(process.env.PORT) || 3000;
 const RECONNECT_GRACE_MS = 45_000;
 const TIME_SCALE = Number(process.env.RPS_TIMESCALE) || 1; // tests speed the game up
@@ -26,6 +27,9 @@ const MIME = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
 };
 
 function serveFile(res, base, rel) {
@@ -52,6 +56,7 @@ const server = http.createServer((req, res) => {
     return;
   }
   if (p.startsWith('/vendor/three/')) return serveFile(res, THREE, p.slice('/vendor/three/'.length));
+  if (p.startsWith('/vendor/remixicon/')) return serveFile(res, REMIX, p.slice('/vendor/remixicon/'.length));
   if (p === '/' || p.startsWith('/room/')) p = '/index.html';
   serveFile(res, PUBLIC, p);
 });

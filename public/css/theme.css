@@ -1,0 +1,789 @@
+/* Theme: "Extraction" — pure black, acid lime, ultraviolet and signal red,
+   wide uppercase display type, mono labels, square corners and crop marks.
+   Loaded after style.css; it only restyles, the layout stays the same.
+   Remove the <link> to theme.css in index.html to go back to the original look. */
+
+:root {
+  --canvas: #000000;
+  --surface-1: #0c0c0c;
+  --surface-2: #1c1c1c;
+  --surface-3: #2a2a2a;
+  --hairline: #2e2e2e;
+  --hairline-soft: #1a1a1a;
+  --ink: #ffffff;
+  --ink-muted: #8a8a8a;
+  --on-primary: #000000;
+
+  --lime: #c0fe04;
+  --violet: #5200ff;
+  --violet-bright: #7a3dff;
+  --signal: #f24723;
+
+  --accent: var(--lime);
+  --success: var(--lime);
+
+  /* flat fills with a faint scanline texture */
+  --scan-light: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px);
+  --scan-dark: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.07) 0 1px, transparent 1px 3px);
+  --g-violet: var(--scan-light), var(--violet);
+  --g-magenta: var(--scan-dark), var(--lime);
+  --g-orange: var(--scan-light), var(--signal);
+  --g-coral: var(--scan-light), var(--signal);
+
+  --r-xs: 0;
+  --r-sm: 0;
+  --r-md: 0;
+  --r-lg: 0;
+  --r-xl: 0;
+  --r-xxl: 0;
+  --r-pill: 0;
+
+  --font-display: 'Archivo', 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Chakra Petch', ui-monospace, monospace;
+
+  --shadow-float: none;
+  --ring-select: 0 0 0 2px #000, 0 0 0 4px var(--lime);
+}
+
+html,
+body {
+  background: #000;
+}
+body {
+  font-family: var(--font-body);
+  letter-spacing: 0;
+  font-feature-settings: normal;
+}
+
+/* ------------------------------------------------------------ type */
+.display-xxl,
+.display-xl,
+.display-lg,
+.display-md,
+.phase-title,
+.headline,
+.brand,
+.stage-title,
+.hp-num .num,
+.at-main,
+.card-name,
+.callout,
+.avatar,
+.code-input,
+#timer-num {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  text-transform: uppercase;
+}
+.display-xxl,
+.display-xl,
+.display-lg {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
+.display-md,
+.phase-title,
+.stage-title,
+.headline {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+.eyebrow,
+.caption,
+.micro,
+.chip,
+.badge,
+.tier,
+.at-cost,
+.pill,
+.slot-label,
+.card-en,
+.card-bonus,
+.stack-count,
+.stack-picked,
+.card-key,
+.skill-list,
+.res-row,
+.angry-legend,
+.i-row,
+.h-turn,
+.h-labels,
+#log-list,
+.toast,
+.link-box,
+.result-stats,
+.buff,
+.type-bonus {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.eyebrow {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+.eyebrow::before {
+  content: '// ';
+  color: var(--lime);
+}
+.muted {
+  color: var(--ink-muted);
+}
+
+/* ------------------------------------------------------------ buttons */
+.pill {
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 42px;
+  padding: 10px 18px;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s, transform 0.12s;
+}
+.pill.primary {
+  background: var(--lime);
+  color: #000;
+}
+.pill.primary:hover:not(:disabled) {
+  background: #fff;
+}
+.pill.secondary {
+  background: #000;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px #3a3a3a;
+}
+.pill.secondary:hover:not(:disabled) {
+  background: #000;
+  box-shadow: inset 0 0 0 1px var(--lime);
+  color: var(--lime);
+}
+.pill.secondary::after {
+  content: ' [+]';
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+.pill.sm::after,
+#log-toggle::after,
+#leave::after,
+#pick-reset::after {
+  content: none;
+}
+.pill.translucent {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: none;
+}
+.pill.translucent:hover {
+  background: #000;
+}
+.pill.danger {
+  background: var(--signal);
+}
+.pill:disabled {
+  opacity: 0.3;
+}
+.pill-sub {
+  font-weight: 400;
+  opacity: 0.75;
+}
+.icon-btn,
+.sound-btn {
+  border-radius: 0;
+  background: #000;
+  box-shadow: inset 0 0 0 1px #3a3a3a;
+}
+.chip {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #2a2a2a;
+  font-size: 11px;
+}
+.chip b {
+  color: var(--lime);
+}
+
+/* ------------------------------------------------------------ crop marks on main surfaces */
+.panel,
+.stage,
+.join-card,
+.log {
+  position: relative;
+}
+.panel::before,
+.stage::before,
+.join-card::before,
+.log::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  --c: var(--lime);
+  --l: 12px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--l) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px var(--l) no-repeat;
+}
+.stage.is-defense::before,
+.stage.is-result::before {
+  content: none;
+}
+
+/* ------------------------------------------------------------ lobby */
+.lobby .hero .display-xxl {
+  font-size: clamp(64px, 10vw, 136px);
+}
+.hero .subhead {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 46ch;
+}
+.join-card {
+  background: #050505;
+  box-shadow: inset 0 0 0 1px #222;
+  backdrop-filter: none;
+}
+.field input,
+.code-input {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #333;
+  font-family: var(--font-mono);
+}
+.field input:focus-visible,
+.code-input:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--lime);
+}
+.code-input {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+.divider {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.type-card {
+  border-radius: 0;
+  position: relative;
+}
+.type-card h3 {
+  font-size: clamp(26px, 3vw, 38px);
+}
+.type-card.g-magenta,
+.type-card.g-magenta .caption {
+  color: #000;
+}
+.type-card .caption {
+  font-size: 11px;
+  opacity: 0.85;
+}
+.type-bonus {
+  font-size: 12px;
+  background: #000;
+  color: #fff;
+}
+.rules {
+  border-top: 1px solid #222;
+}
+.rules p {
+  font-size: 14px;
+}
+.slider input {
+  accent-color: var(--lime);
+}
+
+/* ------------------------------------------------------------ waiting */
+.room-code {
+  color: var(--lime);
+  letter-spacing: 0.02em;
+}
+.link-box {
+  background: #000;
+  font-size: 12px;
+}
+.seat-list li {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #2a2a2a;
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------ avatars & identity */
+.avatar {
+  border-radius: 0;
+  font-weight: 800;
+  font-size: 16px;
+}
+.avatar.me {
+  background: var(--lime);
+  color: #000;
+}
+.avatar.opp {
+  background: var(--signal);
+  color: #000;
+}
+.brand {
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.brand::after {
+  content: ' ■';
+  color: var(--lime);
+  font-size: 10px;
+  vertical-align: 3px;
+}
+.banner {
+  background: #000;
+  box-shadow: inset 0 0 0 1px var(--signal), inset 4px 0 0 var(--signal);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------ side panels */
+.panel {
+  background: rgba(0, 0, 0, 0.88);
+  box-shadow: inset 0 0 0 1px #1f1f1f;
+}
+.who .name {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.hp-num .num {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.track {
+  height: 6px;
+  background: #1c1c1c;
+}
+.hp-track .fill {
+  background: #fff;
+}
+.hp-track.low .fill {
+  background: var(--signal);
+}
+.mana-track .fill {
+  background: var(--violet-bright);
+}
+.res-row {
+  font-size: 11px;
+}
+.res-row .caption {
+  font-size: 11px;
+}
+.res-row b {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.hidden-val {
+  color: var(--signal);
+}
+.angry-pips i {
+  border-radius: 0;
+  background: #1c1c1c;
+}
+.angry-pips i.on {
+  background: var(--signal);
+}
+.angry-pips i.mark {
+  box-shadow: 0 3px 0 -1px var(--lime);
+}
+.pips i {
+  border-radius: 0;
+  background: #222;
+}
+.pips.combo i.on {
+  background: var(--lime);
+}
+.skill-list {
+  font-size: 11px;
+  border-top-color: #1f1f1f;
+}
+.skill-list li:not(.cd) b {
+  border-radius: 0;
+  background: var(--lime);
+}
+.skill-list li.cd b {
+  color: var(--signal);
+}
+.buff {
+  background: var(--violet);
+}
+.dot {
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------ arena */
+.phase-title {
+  font-size: clamp(22px, 2.6vw, 38px);
+}
+.phase-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.timer circle {
+  stroke-width: 3;
+}
+.t-track {
+  stroke: #1c1c1c;
+}
+.t-bar {
+  stroke-linecap: butt;
+}
+.timer.mine .t-bar {
+  stroke: var(--lime);
+}
+.timer.urgent .t-bar {
+  stroke: var(--signal);
+}
+#timer-num {
+  font-weight: 800;
+}
+
+/* ------------------------------------------------------------ cards */
+.card {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.card-name {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.card-en {
+  opacity: 0.8;
+}
+.card-bonus {
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+}
+.card.g-magenta,
+.stack .card.g-magenta {
+  color: #000;
+}
+.card.g-magenta .card-bonus {
+  background: #000;
+  color: var(--lime);
+}
+.card.back {
+  background: repeating-linear-gradient(135deg, #0a0a0a 0 6px, #141414 6px 12px);
+  box-shadow: inset 0 0 0 1px #2a2a2a;
+}
+.card.back span {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.card.back.thinking span {
+  font-family: var(--font-display);
+  color: var(--ink-muted);
+}
+.card.empty {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 0 1px #2a2a2a;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.card.locked {
+  box-shadow: 0 0 0 2px #000, 0 0 0 3px #fff;
+}
+.card.winner {
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--lime), 0 0 40px rgba(192, 254, 4, 0.35);
+}
+.card.loser {
+  filter: grayscale(1) brightness(0.45);
+}
+.stack .layer {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.stack-count {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  font-size: 12px;
+  height: 26px;
+}
+.stack.empty .stack-count {
+  background: #111;
+  color: var(--ink-muted);
+}
+.stack-picked {
+  background: var(--lime);
+  color: #000;
+}
+.card-key {
+  border-radius: 0;
+  background: #000;
+  color: #fff;
+}
+
+/* ------------------------------------------------------------ stage */
+.stage {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 0 1px #1f1f1f;
+}
+.stage.is-defense,
+.stage.is-result {
+  box-shadow: none;
+}
+.intel {
+  border-left-color: #1f1f1f;
+}
+.intel h4 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+}
+.intel h4::before {
+  content: '[+] ';
+  color: var(--lime);
+}
+.h-chip,
+.i-bar,
+.i-bar i {
+  border-radius: 0;
+}
+.h-chip.g-magenta {
+  color: #000;
+}
+.h-chip.lost {
+  background: #1a1a1a;
+}
+.i-bar {
+  background: #1a1a1a;
+}
+.i-tip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-top-color: #1f1f1f;
+}
+.i-tip b {
+  color: var(--lime);
+}
+
+/* skill icons */
+.sk {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #2a2a2a;
+  font-size: 19px;
+}
+.sk.ready {
+  color: var(--lime);
+  box-shadow: inset 0 0 0 1px rgba(192, 254, 4, 0.45);
+}
+.sk.cd {
+  color: #6a6a6a;
+  opacity: 1;
+  background: repeating-linear-gradient(135deg, #080808 0 4px, #121212 4px 8px);
+}
+.at-icon {
+  color: var(--lime);
+}
+.action-tile:disabled .at-icon {
+  color: inherit;
+}
+
+/* action tiles */
+.action-tile {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #262626;
+}
+.action-tile:hover:not(:disabled) {
+  background: #000;
+  box-shadow: inset 0 0 0 1px var(--lime);
+}
+.action-tile:hover:not(:disabled) .at-name {
+  color: var(--lime);
+}
+.at-name {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.at-main {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.at-main small {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.at-meta {
+  font-size: 12px;
+}
+.at-cost {
+  background: #141414;
+  font-size: 11px;
+}
+.at-cost.off {
+  color: var(--signal);
+}
+.tier {
+  background: #141414;
+}
+.tier.large {
+  background: var(--lime);
+  color: #000;
+}
+.badge {
+  font-size: 11px;
+}
+.badge.g-magenta {
+  color: #000;
+}
+
+/* defense + result spotlight blocks */
+.defense-card,
+.result-card {
+  border-radius: 0;
+}
+.defense-card .pill.primary,
+.result-card .pill.primary {
+  background: #000;
+  color: #fff;
+}
+.defense-card .pill.primary:hover:not(:disabled),
+.result-card .pill.primary:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+}
+.defense-card .eyebrow,
+.result-card .eyebrow {
+  color: rgba(0, 0, 0, 0.75);
+}
+.defense-card .eyebrow::before,
+.result-card .eyebrow::before {
+  color: #000;
+}
+.defense-card,
+.defense-card .caption {
+  color: #000;
+}
+.defense-card .pill.translucent,
+.result-card .pill.translucent {
+  background: rgba(0, 0, 0, 0.15);
+  color: #000;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+}
+/* victory = lime, defeat = signal red, draw = ultraviolet */
+.result-card.g-violet {
+  background: var(--g-magenta);
+  color: #000;
+}
+.result-card.g-orange {
+  background: var(--g-violet);
+}
+.result-card.g-orange .eyebrow,
+.result-card.g-orange .eyebrow::before {
+  color: rgba(255, 255, 255, 0.8);
+}
+.result-card.g-orange .pill.translucent {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.result-card.g-coral {
+  color: #000;
+}
+.result-stats {
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+}
+.result-stats td:first-child,
+.result-stats th:first-child {
+  color: var(--ink-muted);
+}
+
+/* ------------------------------------------------------------ log */
+.log {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #1f1f1f;
+}
+#log-list {
+  font-size: 11px;
+  text-transform: none;
+}
+#log-list li {
+  border-bottom-color: #141414;
+}
+#log-list li.turn {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+#log-list li.good {
+  color: var(--lime);
+}
+#log-list li.bad {
+  color: var(--signal);
+}
+#log-list li.combo {
+  color: #b28bff;
+}
+
+/* ------------------------------------------------------------ toasts, callouts, floats */
+.toast {
+  background: #000;
+  box-shadow: inset 0 0 0 1px #333;
+  font-size: 12px;
+}
+.toast.warn {
+  background: var(--signal);
+  color: #fff;
+  box-shadow: none;
+}
+.callout {
+  border-radius: 0;
+  font-weight: 800;
+  box-shadow: 8px 8px 0 #000;
+}
+.callout.g-magenta {
+  color: #000;
+}
+.float {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+}
+.float.dmg {
+  color: var(--signal);
+}
+.float.heal {
+  color: var(--lime);
+}
+.float.mana {
+  color: #a98bff;
+}
+body.offline::after {
+  border-radius: 0;
+  background: var(--signal);
+  color: #000;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 12px;
+}

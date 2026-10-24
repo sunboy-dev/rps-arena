@@ -6,25 +6,25 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 const COLORS = {
-  me: new THREE.Color('#7b5cff'),
-  opp: new THREE.Color('#ff7a1a'),
-  heal: new THREE.Color('#2fd06e'),
-  mana: new THREE.Color('#9b7bff'),
-  combo: new THREE.Color('#ff3d9a'),
-  counter: new THREE.Color('#ffb15c'),
+  me: new THREE.Color('#c0fe04'),
+  opp: new THREE.Color('#f24723'),
+  heal: new THREE.Color('#d6ff5c'),
+  mana: new THREE.Color('#7a3dff'),
+  combo: new THREE.Color('#5200ff'),
+  counter: new THREE.Color('#ffffff'),
   white: new THREE.Color('#ffffff'),
-  hit: new THREE.Color('#ff4d6d'),
+  hit: new THREE.Color('#f24723'),
 };
 
 export function createScene(canvas) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
-  renderer.setClearColor('#0a0a0a');
+  renderer.setClearColor('#000000');
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2('#0a0a0a', 0.045);
+  scene.fog = new THREE.FogExp2('#000000', 0.045);
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
   camera.position.set(0, 0, 10);
 
@@ -39,7 +39,7 @@ export function createScene(canvas) {
   const ring2 = new THREE.Mesh(new THREE.TorusGeometry(4.4, 0.006, 8, 200), ringMat.clone());
   ring2.material.opacity = 0.05;
   arena.add(ring2);
-  const grid = new THREE.GridHelper(40, 40, '#262626', '#161616');
+  const grid = new THREE.GridHelper(40, 40, '#3a4d08', '#141414');
   grid.position.y = -4;
   grid.material.transparent = true;
   grid.material.opacity = 0.55;

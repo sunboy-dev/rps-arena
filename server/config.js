@@ -46,7 +46,7 @@ export const BALANCE = {
   resolvePauseMs: 900,
 };
 
-// Skills are data. Each skill has a tier (decides how it can be defended),
+// Skills are data. `icon` is a Remix Icon class (https://remixicon.com). Each skill has a tier (decides how it can be defended),
 // a cooldown, a Mana cost and a list of effects. Supported effect types:
 //   { type: 'damage', base }                       -> attack, can be defended by tier
 //   { type: 'heal', amount }                       -> heal self (Combo: x comboHealMult)
@@ -56,28 +56,28 @@ export const BALANCE = {
 // To add a new effect type, add a handler in EFFECTS in engine.js.
 export const SKILLS = [
   {
-    id: 'heal', name: 'Heal', tier: 'small', cooldown: 5, cost: 2,
+    id: 'heal', name: 'Heal', icon: 'ri-heart-pulse-fill', tier: 'small', cooldown: 5, cost: 2,
     desc: 'ฟื้นฟู 12 HP',
     effects: [{ type: 'heal', amount: 12 }],
   },
   {
-    id: 'quick', name: 'Quick Strike', tier: 'small', cooldown: 5, cost: 4,
+    id: 'quick', name: 'Quick Strike', icon: 'ri-flashlight-fill', tier: 'small', cooldown: 5, cost: 4,
     desc: 'Damage 10',
     effects: [{ type: 'damage', base: 10 }],
   },
   {
-    id: 'heavy', name: 'Heavy Strike', tier: 'medium', cooldown: 7, cost: 5,
+    id: 'heavy', name: 'Heavy Strike', icon: 'ri-hammer-fill', tier: 'medium', cooldown: 7, cost: 5,
     desc: 'Damage 16',
     effects: [{ type: 'damage', base: 16 }],
   },
   {
-    id: 'ultimate', name: 'Ultimate', tier: 'large', cooldown: 9, cost: 7,
+    id: 'ultimate', name: 'Ultimate', icon: 'ri-meteor-fill', tier: 'large', cooldown: 9, cost: 7,
     desc: 'Damage 26 · ป้องกันไม่ได้',
     effects: [{ type: 'damage', base: 26 }],
   },
   // Example of the kind of skill planned for later. Set enabled: true to try it.
   {
-    id: 'battlecry', enabled: false, name: 'Battle Cry', tier: 'small', cooldown: 5, cost: 2,
+    id: 'battlecry', enabled: false, name: 'Battle Cry', icon: 'ri-megaphone-fill', tier: 'small', cooldown: 5, cost: 2,
     desc: 'Normal Attack +10% เป็นเวลา 3 Turn',
     effects: [{ type: 'buff', stat: 'normalDamagePct', value: 10, turns: 3 }],
   },

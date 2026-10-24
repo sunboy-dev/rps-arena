@@ -41,7 +41,8 @@ server/
   index.js    HTTP + WebSocket, ห้อง, reconnect, rematch
 public/
   index.html
-  css/style.css   UI ตาม DESIGN.md
+  css/style.css   layout และ UI พื้นฐาน
+  css/theme.css   ธีมสี/ฟอนต์ (ดำ · เขียวมะนาว · ม่วง · แดง) ลบ <link> ใน index.html เพื่อกลับไปธีมเดิม
   js/main.js      หน้าจอและ HUD
   js/net.js       WebSocket + reconnect อัตโนมัติ
   js/audio.js     เสียงเอฟเฟกต์และเพลงสังเคราะห์ด้วย Web Audio (ไม่มีไฟล์เสียง)

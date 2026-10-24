@@ -519,13 +519,18 @@ function angryMeter(a) {
   </div>`;
 }
 
+const ACTION_ICON = { normal: 'ri-sword-fill', charge: 'ri-battery-2-charge-fill', draw: 'ri-stack-fill' };
+const skillIcon = (s) => s?.icon || 'ri-magic-fill';
+
+// Skills as icons only; cooling-down ones are dimmed (numbers live on the action cards).
 function skillList(cds) {
-  return `<ul class="skill-list">${S.config.skills
+  return `<div class="skill-icons">${S.config.skills
     .map((s) => {
       const cd = cds[s.id] || 0;
-      return `<li class="${cd ? 'cd' : ''}" title="${esc(s.desc)}"><span>${esc(s.name)}</span><b>${cd || ''}</b></li>`;
+      const tip = `${s.name} · ${cd ? `Cooldown ${cd} Turn` : 'พร้อมใช้'} · ${s.desc}`;
+      return `<span class="sk ${cd ? 'cd' : 'ready'}" title="${esc(tip)}" aria-label="${esc(tip)}"><i class="${skillIcon(s)}"></i></span>`;
     })
-    .join('')}</ul>`;
+    .join('')}</div>`;
 }
 
 function buffChips(buffs) {
@@ -772,7 +777,7 @@ function intelHtml(sel) {
   const v = S.view;
   const per = S.config.balance.deck;
   const meIdx = S.you;
-  const hist = (v.history || []).slice(-8);
+  const hist = (v.history || []).slice(-7);
   const chip = (t, res) => `<span class="h-chip ${TYPES[t].grad} ${res}" title="${TYPES[t].th}">${ICON[t]}</span>`;
   // one column per turn: opponent on top, you below; the winning card keeps its color
   const historyHtml = hist.length
@@ -892,8 +897,9 @@ function actionGrid(p) {
         cost = o.enabled ? `Mana ${o.cost}` : o.reason;
       }
       const tier = o.tier ? `<span class="tier ${o.tier}">${TIER[o.tier]}</span>` : '';
+      const icon = o.skill ? skillIcon(S.config.skills.find((s) => s.id === o.skill)) : ACTION_ICON[o.id];
       return `<button class="action-tile" data-action="${o.id}" ${o.enabled ? '' : 'disabled'}>
-        <span class="at-top"><span class="at-name">${esc(o.label)}</span>${tier}</span>
+        <span class="at-top"><span class="at-name"><i class="at-icon ${icon}"></i>${esc(o.label)}</span>${tier}</span>
         <span class="at-main">${main}</span>
         <span class="at-meta">${meta}</span>
         <span class="at-cost ${o.enabled ? '' : 'off'}">${esc(cost)}</span>
@@ -915,8 +921,8 @@ function defenseHtml(p) {
   const hasCounter = opts.some((x) => x.id === 'counter');
   const btn = (o) => {
     if (o.id === 'none') return `<button class="pill ${p.hasChoice ? 'translucent' : 'primary'}" data-def="none">รับดาเมจ</button>`;
-    if (o.id === 'counter') return `<button class="pill primary" data-def="counter">Counter <span class="pill-sub">Angry ${o.cost} · สวน ${o.damage}</span></button>`;
-    return `<button class="pill ${hasCounter ? 'translucent' : 'primary'}" data-def="dodge">Dodge <span class="pill-sub">Angry ${o.cost}</span></button>`;
+    if (o.id === 'counter') return `<button class="pill primary" data-def="counter"><i class="ri-shield-flash-fill"></i>Counter <span class="pill-sub">Angry ${o.cost} · สวน ${o.damage}</span></button>`;
+    return `<button class="pill ${hasCounter ? 'translucent' : 'primary'}" data-def="dodge"><i class="ri-run-fill"></i>Dodge <span class="pill-sub">Angry ${o.cost}</span></button>`;
   };
   const order = ['counter', 'dodge', 'none'];
   const note = inc.tier === 'large' ? 'Large Skill ป้องกันไม่ได้' : p.hasChoice ? 'Angry ที่เพิ่งได้ Turn นี้ใช้ได้ Turn หน้า' : 'Angry ไม่พอสำหรับป้องกันการโจมตีนี้';

@@ -721,6 +721,34 @@ input:focus-visible {
   background: var(--surface-3);
 }
 
+/* skills as icons */
+.skill-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding-top: var(--s-sm);
+  border-top: 1px solid var(--hairline-soft);
+}
+.sk {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  background: var(--surface-2);
+  border-radius: var(--r-sm);
+  color: var(--ink);
+  cursor: help;
+}
+.sk.cd {
+  color: var(--ink-muted);
+  opacity: 0.35;
+}
+.at-icon {
+  margin-right: 6px;
+  font-size: 15px;
+  vertical-align: -2px;
+}
+
 /* floating numbers */
 .float {
   position: absolute;
@@ -1099,9 +1127,16 @@ input:focus-visible {
   margin: 0 0 10px;
   font-weight: 500;
 }
+.intel section {
+  min-width: 0;
+}
 .history-wrap {
   display: flex;
   gap: 10px;
+  overflow: hidden;
+}
+.h-labels {
+  white-space: nowrap;
 }
 .h-labels {
   display: grid;
